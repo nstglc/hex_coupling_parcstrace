@@ -12,7 +12,7 @@ import copy
 
 ### preliminary extraction of Fuel Assembly map
 
-with open('ETE_U2C20_BOC_v0.parcs_out', 'r') as file:  
+with open('file.parcs_out', 'r') as file:  
     contents = file.read()
 pattern = re.compile(r'Fuel Assembly Numbering\s+=+\s+([\s\d]+)')      # this is needed to calculate the reflector dimensions
 matches = pattern.findall(contents) 
@@ -36,7 +36,7 @@ for line in lines:
 ''' Radial PARCS and radial weight maps '''
 
 # extract PARCS map
-with open('ETE_U2C20_BOC_v0.parcs_out', 'r') as file:  
+with open('file.parcs_out', 'r') as file:  
     contents = file.read()
 pattern = re.compile(r'Assembly Numbering\s+=+\s+([\s\d]+)')      # "Assembly Numbering" includes the reflector
 matches = pattern.findall(contents) 
@@ -82,7 +82,7 @@ for i in range(len(rweight)):
 
 
 # extract the number of rings and sectors
-with open('Base_Job_ref.inp', 'r') as file:  
+with open('file.inp', 'r') as file:  
     contents = file.read()
 pattern = re.compile(r'ivssbf.*?\n\s+\d+\s+(\d+)\s+(\d+)')  
 matches = pattern.findall(contents)                       
@@ -659,7 +659,7 @@ NASSY = copy.deepcopy(cumulative_index)      # it's the augmented number of node
 ''' VESSEL NUMBER '''
              
 # extract the vessel ID
-with open('Base_Job_ref.inp', 'r') as file:  
+with open('file.inp', 'r') as file:  
     contents = file.read()
 pattern = re.compile(r'VESSEL\s+\S\s+(\d+)')   
 matches = pattern.findall(contents) 
@@ -668,7 +668,7 @@ NVESSEL = int(matches[0])
 ''' NUMBER OF AXIAL LEVELS ''' 
 
 # extract the number of axial levels (total, bottom reflector, top reflector)
-with open('ETE_U2C20_BOC_v0.parcs_out', 'r') as file:  
+with open('file.parcs_out', 'r') as file:  
     contents = file.read()
 pattern = re.compile(r'geo_dim\s+\d+\s+(\d+)\s+(\d+)\s+(\d+)')   
 matches = pattern.findall(contents) 
@@ -690,7 +690,7 @@ tnztr = int(input("the size (number of axial levels) of TRACE top reflector is: 
 ''' Axial PARCS map '''  
 
 # extract the PARCS axial levels and their lengths
-with open('ETE_U2C20_BOC_v0.parcs_out', 'r') as file:  
+with open('file.parcs_out', 'r') as file:  
     contents = file.read()
 
 # find the data section
@@ -729,7 +729,7 @@ aparcs_len.reverse()
 ''' Axial TRACE TH map '''
 
 # extract the heat structures ID
-with open('Base_Job_ref.inp', 'r') as file:  
+with open('file.inp', 'r') as file:  
     contents = file.read()
 pattern_block = re.compile(r'(htstr\s+100110[\s\S]+?htstr\s+100120)', re.MULTILINE)
 
@@ -757,7 +757,7 @@ athtrace = [[int(number)] for number in numbers]
 #print(athtrace)
 
 # extract the TRACE axial levels lengths
-with open('Base_Job_ref.inp', 'r') as file:  
+with open('file.inp', 'r') as file:  
     contents = file.read()
 section_start = re.search(r'vessel', contents)
 if section_start:
@@ -995,4 +995,5 @@ with open('maptab', 'w') as fid:
                 tr = rad["trace2"][nr][i]
                 lab = f"{tr:5d} {1:5d} {ta:5d} {pr:5d} {wa * wr:10.6f}\n"
                 fid.write(lab)
+
 
