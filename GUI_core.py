@@ -27,7 +27,7 @@ class FAclass:
     def extract_nsect(self):
 
         # extract the number of hydraulic sectors
-        with open('Base_Job.inp', 'r') as file:  
+        with open('file.inp', 'r') as file:  
             contents = file.read()
         pattern = re.compile(r'ivssbf.*?\n\s+\d+\s+\d+\s+(\d+)')  
         matches = pattern.findall(contents)                       
@@ -41,7 +41,7 @@ class FAclass:
     def extract_parcs_map(self):
 
         # extract PARCS map
-        with open('ETE_U2C20_BOC_v0.parcs_out', 'r') as file:
+        with open('file.parcs_out', 'r') as file:
             contents = file.read()
             pattern = re.compile(r'Assembly Numbering\s+=+\s+([\s\d]+)')
             matches = pattern.findall(contents)
@@ -169,7 +169,7 @@ class FAclass:
     def create_weight_map(self):
 
         # extract PARCS map
-        with open('ETE_U2C20_BOC_v0.parcs_out', 'r') as file:
+        with open('file.parcs_out', 'r') as file:
             contents = file.read()
             pattern = re.compile(r'Assembly Numbering\s+=+\s+([\s\d]+)')
             matches = pattern.findall(contents)
@@ -515,7 +515,7 @@ class FAclass:
         ''' VESSEL NUMBER '''
                      
         # extract the vessel ID
-        with open('Base_Job.inp', 'r') as file:  
+        with open('file.inp', 'r') as file:  
             contents = file.read()
         pattern = re.compile(r'VESSEL\s+\S\s+(\d+)')   
         matches = pattern.findall(contents) 
@@ -524,7 +524,7 @@ class FAclass:
         ''' NUMBER OF AXIAL LEVELS ''' 
         
         # extract the number of axial levels (total, bottom reflector, top reflector)
-        with open('ETE_U2C20_BOC_v0.parcs_out', 'r') as file:  
+        with open('file.parcs_out', 'r') as file:  
             contents = file.read()
         pattern = re.compile(r'geo_dim\s+\d+\s+(\d+)\s+(\d+)\s+(\d+)')   
         matches = pattern.findall(contents) 
@@ -546,7 +546,7 @@ class FAclass:
         ''' Axial PARCS map '''  
         
         # extract the PARCS axial levels and their lengths
-        with open('ETE_U2C20_BOC_v0.parcs_out', 'r') as file:  
+        with open('file.parcs_out', 'r') as file:  
             contents = file.read()
         
         # find the data section
@@ -585,7 +585,7 @@ class FAclass:
         ''' Axial TRACE TH map '''
         
         # extract the heat structures ID
-        with open('Base_Job.inp', 'r') as file:  # prelevo il codice del componente th in base alla hs a cui è associato
+        with open('file.inp', 'r') as file:  # prelevo il codice del componente th in base alla hs a cui è associato
             contents = file.read()
         pattern_block = re.compile(r'(htstr\s+100110[\s\S]+?htstr\s+100120)', re.MULTILINE)     # this part eventually needs a modification according to the HS number
         
@@ -613,7 +613,7 @@ class FAclass:
         #print(athtrace)
         
         # extract the TRACE axial levels lengths
-        with open('Base_Job.inp', 'r') as file:  
+        with open('file.inp', 'r') as file:  
             contents = file.read()
         section_start = re.search(r'vessel', contents)
         if section_start:
@@ -851,5 +851,6 @@ class FAclass:
                         tr = rad["trace2"][nr][i]
                         lab = f"{tr:5d} {1:5d} {ta:5d} {pr:5d} {wa * wr:10.6f}\n"
                         fid.write(lab)
+
 
                         
