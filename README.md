@@ -3,7 +3,7 @@ Python scripts for coupling PARCS and TRACE in hexagonal cores. They generate MA
 
 0. Coupling methodology and scripts
 
-The scripts require three files to work: the TRACE input file, the PARCS input file, and the PARCS output file. The input files are provided after completing the modeling phase, while the PARCS output file is obtained after running a Steady State (SS) Stand-Alone (SA) PARCS simulation.
+The scripts require two files to work: the TRACE input file and the PARCS output file. The input file is provided after completing the modeling phase, while the PARCS output file is obtained after running a Steady State (SS) Stand-Alone (SA) PARCS simulation.
 
 1. Core script
 
